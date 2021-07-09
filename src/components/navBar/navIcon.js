@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../common/avatar/avatar";
 import { NotiIcon, SearchIcon } from "../../res/svgIcon";
+import NotiModal from "./notiModal";
+import ProfileModal from "./profileModal";
 
 const NavIcon = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isMyProfile, setIsMyProfile] = useState(false);
+    const [isNotification, setIsNotification] = useState(false);
 
     return (
         <Container>
@@ -14,15 +18,36 @@ const NavIcon = () => {
             </StyledButton>
             {isLoggedIn ? (
                 <>
-                    <StyledButton>
-                        <NotiIcon />
-                    </StyledButton>
-                    <StyledButton>
-                        <Avatar />
-                    </StyledButton>
+                    <li>
+                        <StyledButton
+                            onClick={() => {
+                                setIsMyProfile(false);
+                                setIsNotification(!isNotification);
+                            }}
+                            className={isNotification ? "on" : "off"}
+                        >
+                            <NotiIcon
+                                color={isNotification ? "#fff" : "#333"}
+                            />
+                        </StyledButton>
+                        {isNotification && <NotiModal />}
+                    </li>
+                    <li>
+                        <StyledButton
+                            onClick={() => {
+                                setIsNotification(false);
+                                setIsMyProfile(!isMyProfile);
+                            }}
+                        >
+                            <Avatar border={isMyProfile} />
+                        </StyledButton>
+                        {isMyProfile && <ProfileModal />}
+                    </li>
                 </>
             ) : (
-                <StyledButton>회원가입/로그인</StyledButton>
+                <StyledButton onClick={() => setIsLoggedIn(true)}>
+                    회원가입/로그인
+                </StyledButton>
             )}
             <Divider />
             <DashboardButton to="/dashboard">기업 서비스</DashboardButton>
@@ -51,6 +76,18 @@ const StyledButton = styled.button`
 
     :hover {
         cursor: pointer;
+    }
+
+    &.on {
+        border-radius: 50%;
+        background-color: #36f;
+        width: 28px;
+        margin: 0 5px;
+        height: 28px;
+
+        svg {
+            margin: 0 -100%;
+        }
     }
 `;
 
