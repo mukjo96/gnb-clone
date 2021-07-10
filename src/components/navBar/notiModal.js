@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RightArrowIcon } from "../../res/svgIcon";
 
@@ -43,7 +42,9 @@ const NotiModal = () => {
                 <MyNotiDropdown>
                     <DropdownItems>
                         {notifyData.map((item) => (
-                            <li>{renderNotificationBody(item)}</li>
+                            <li key={item.text}>
+                                {renderNotificationBody(item)}
+                            </li>
                         ))}
                     </DropdownItems>
                 </MyNotiDropdown>

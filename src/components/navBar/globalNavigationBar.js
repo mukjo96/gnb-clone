@@ -25,7 +25,7 @@ const GlobalNavigationBar = () => {
                 <LogoLink className="nonmember" to="/">
                     <Logo />
                 </LogoLink>
-                <MobileSignup>회원가입하기</MobileSignup>
+                <MobileSignup to="/">회원가입하기</MobileSignup>
             </MobileNavContainer>
             <NavContainer>
                 <LogoLink to="/">
