@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../common/avatar/avatar";
-import { NotiIcon, SearchIcon } from "../../res/svgIcon";
+import { HamburgerIcon, NotiIcon, SearchIcon } from "../../res/svgIcon";
+import HamburgerMenu from "./hamburgerMenu";
 import NotiModal from "./notiModal";
 import ProfileModal from "./profileModal";
 
-const NavIcon = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+const NavIcon = ({ isLoggedIn, setIsLoggedIn }) => {
     const [isMyProfile, setIsMyProfile] = useState(false);
     const [isNotification, setIsNotification] = useState(false);
+    const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
 
     return (
         <Container>
@@ -38,16 +39,54 @@ const NavIcon = () => {
                                 setIsNotification(false);
                                 setIsMyProfile(!isMyProfile);
                             }}
+                            className="profile"
                         >
                             <Avatar border={isMyProfile} />
                         </StyledButton>
-                        {isMyProfile && <ProfileModal />}
+                        {isMyProfile && (
+                            <ProfileModal setIsLoggedIn={setIsLoggedIn} />
+                        )}
+                    </li>
+                    <li>
+                        <StyledButton
+                            className="hamburger"
+                            onClick={() => setShowHamburgerMenu(true)}
+                        >
+                            <HamburgerIcon />
+                        </StyledButton>
+                        {showHamburgerMenu && (
+                            <HamburgerMenu
+                                isLoggedIn={isLoggedIn}
+                                setIsLoggedIn={setIsLoggedIn}
+                                setShowHamburgerMenu={setShowHamburgerMenu}
+                            />
+                        )}
                     </li>
                 </>
             ) : (
-                <StyledButton onClick={() => setIsLoggedIn(true)}>
-                    회원가입/로그인
-                </StyledButton>
+                <>
+                    <StyledButton
+                        className="signUp"
+                        onClick={() => setIsLoggedIn(true)}
+                    >
+                        회원가입/로그인
+                    </StyledButton>
+                    <li>
+                        <StyledButton
+                            className="hamburger"
+                            onClick={() => setShowHamburgerMenu(true)}
+                        >
+                            <HamburgerIcon />
+                        </StyledButton>
+                        {showHamburgerMenu && (
+                            <HamburgerMenu
+                                isLoggedIn={isLoggedIn}
+                                setIsLoggedIn={setIsLoggedIn}
+                                setShowHamburgerMenu={setShowHamburgerMenu}
+                            />
+                        )}
+                    </li>
+                </>
             )}
             <Divider />
             <DashboardButton to="/dashboard">기업 서비스</DashboardButton>
@@ -89,6 +128,25 @@ const StyledButton = styled.button`
             margin: 0 -100%;
         }
     }
+
+    &.profile {
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+
+    &.hamburger {
+        display: none;
+        @media screen and (max-width: 767px) {
+            display: inline-block;
+        }
+    }
+
+    &.signUp {
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
 `;
 
 const Divider = styled.div`
@@ -96,6 +154,9 @@ const Divider = styled.div`
     height: 10px;
     background-color: #e1e2e3;
     margin: auto 10px;
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const DashboardButton = styled(Link)`
@@ -109,4 +170,8 @@ const DashboardButton = styled(Link)`
     margin: 0 0 0 15px;
     font-weight: 400;
     text-decoration: none;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 `;

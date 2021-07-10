@@ -7,6 +7,7 @@ import PresentationContents from "./presentationContents";
 
 const GlobalNavigationBar = () => {
     const location = useLocation();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [open, setOpen] = useState(false);
 
     const navItems = [
@@ -20,11 +21,23 @@ const GlobalNavigationBar = () => {
 
     return (
         <Container>
-            <NavContainer>
-                <Link to="/">
+            <MobileNavContainer className={isLoggedIn ? "member" : "nonmember"}>
+                <LogoLink className="nonmember" to="/">
                     <Logo />
-                </Link>
+                </LogoLink>
+                <MobileSignup>회원가입하기</MobileSignup>
+            </MobileNavContainer>
+            <NavContainer>
+                <LogoLink to="/">
+                    <Logo />
+                </LogoLink>
                 <NavList>
+                    <HomeItemTitle
+                        key="홈"
+                        isselected={location.pathname === "/"}
+                    >
+                        <Link to="/">홈</Link>
+                    </HomeItemTitle>
                     {navItems.map((item) => (
                         <ItemTitle
                             key={item.title}
@@ -39,7 +52,10 @@ const GlobalNavigationBar = () => {
                         </ItemTitle>
                     ))}
                 </NavList>
-                <NavIcon />
+                <NavIcon
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
             </NavContainer>
             <Presentation className={open ? "show" : "hidden"}>
                 <ExploreContainer
@@ -72,8 +88,23 @@ const NavContainer = styled.nav`
     @media screen and (max-width: 1280px) {
         width: 90%;
     }
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        height: 57px;
+        padding-top: 4px;
+    }
 `;
 
+const LogoLink = styled(Link)`
+    @media screen and (max-width: 767px) {
+        display: none;
+
+        &.nonmember {
+            display: block;
+        }
+    }
+`;
 const NavList = styled.ul`
     display: flex;
     align-items: center;
@@ -109,11 +140,22 @@ const ItemTitle = styled.li`
             font-size: 13px;
         }
     }
+    @media screen and (max-width: 767px) {
+        :nth-child(n + 4) {
+            display: none;
+        }
+    }
     box-shadow: ${(props) =>
         props.isselected ? "inset 0 -2px #258bf7" : "none"};
 
     :hover {
         box-shadow: inset 0 -2px lightgrey;
+    }
+`;
+
+const HomeItemTitle = styled(ItemTitle)`
+    @media (min-width: 768px) {
+        display: none;
     }
 `;
 
@@ -130,6 +172,9 @@ const Presentation = styled.div`
     -webkit-transition: 0.5s;
     transition: 0.5s;
 
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
     &.show {
         height: auto;
         opacity: 1;
@@ -146,4 +191,33 @@ const ExploreContainer = styled.div`
     &.show {
         height: 100%;
     }
+`;
+
+const MobileNavContainer = styled.div`
+    display: none;
+
+    @media screen and (max-width: 767px) {
+        &.nonmember {
+            display: flex;
+            width: 100%;
+            padding: 15px 20px 0;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &.member {
+            display: none;
+        }
+    }
+`;
+
+const MobileSignup = styled(Link)`
+    color: #36f;
+    font-size: 14px;
+    line-height: 32px;
+    height: 34px;
+    border: 1px solid #36f;
+    border-radius: 17px;
+    padding: 0 14px;
+    text-decoration: none;
 `;

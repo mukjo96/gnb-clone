@@ -81,6 +81,16 @@ const MyNotiModal = styled.div`
     width: 395px;
 
     transform: translate(50%, 8px);
+
+    @media screen and (max-width: 767px) {
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: -50%;
+        width: 100%;
+        max-height: none;
+        margin: 0;
+    }
 `;
 
 const MyNotiDropdown = styled.div`
@@ -90,6 +100,14 @@ const MyNotiDropdown = styled.div`
     box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
     border: 1px solid #cdcdcd;
     background-color: #fff;
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+    }
 `;
 
 const DropdownItems = styled.ul`
@@ -100,15 +118,6 @@ const DropdownItems = styled.ul`
 
         font-size: 14px;
     }
-`;
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-    padding: 0 10px;
-    font-size: 14px;
-    color: #333;
-    font-weight: 600;
-    line-height: 1;
 `;
 
 const MyNotiTail = styled.div`
@@ -127,6 +136,10 @@ const MyNotiTail = styled.div`
     display: block;
     border-top-right-radius: 30%;
     transform: rotate(-55deg) skewX(-20deg);
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const NotiItemBody = styled.div`
@@ -141,6 +154,11 @@ const NotiItemBody = styled.div`
         border-radius: 8px;
         background-color: #f7f7f7;
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 767px) {
+        margin: 0;
+        padding: 19px 16px 20px 20px !important;
     }
 `;
 
@@ -169,6 +187,10 @@ const Text = styled.p`
     color: #111;
     line-height: normal;
     margin-bottom: 7px;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
 `;
 
 const TimeStamp = styled.p`

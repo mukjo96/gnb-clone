@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const ProfileModal = () => {
+const ProfileModal = ({ setIsLoggedIn }) => {
     return (
         <>
             <MyProfileModal>
@@ -33,7 +33,9 @@ const ProfileModal = () => {
                             <StyledLink to="/">포인트</StyledLink>
                         </li>
                         <li>
-                            <StyledLink to="/">로그아웃</StyledLink>
+                            <StyledButton onClick={() => setIsLoggedIn(false)}>
+                                로그아웃
+                            </StyledButton>
                         </li>
                     </DropdownItems>
                 </MyProfileDropdown>
@@ -103,6 +105,18 @@ const StyledLink = styled(Link)`
     color: #333;
     font-weight: 600;
     line-height: 1;
+`;
+
+const StyledButton = styled.button`
+    text-decoration: none;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 `;
 
 const MyProfileTail = styled.div`
