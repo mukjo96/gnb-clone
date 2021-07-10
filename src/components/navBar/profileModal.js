@@ -121,7 +121,7 @@ const StyledButton = styled.button`
 
 const MyProfileTail = styled.div`
     position: absolute;
-    right: 18.5%;
+    right: calc(5% + 136px);
 
     transform: translateX(-47px);
 
@@ -135,4 +135,8 @@ const MyProfileTail = styled.div`
     display: block;
     border-top-right-radius: 30%;
     transform: rotate(-55deg) skewX(-20deg);
+
+    @media screen and (min-width: 1280px) {
+        right: calc(50vw - 640px + 136px);
+    }
 `;

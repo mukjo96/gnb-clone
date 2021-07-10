@@ -72,7 +72,7 @@ export default NotiModal;
 
 const MyNotiModal = styled.div`
     position: absolute;
-    right: 23%;
+    right: calc(5% + 182px);
     max-height: 600px;
     height: 100%;
     margin-top: 13px;
@@ -90,6 +90,9 @@ const MyNotiModal = styled.div`
         width: 100%;
         max-height: none;
         margin: 0;
+    }
+    @media screen and (min-width: 1280px) {
+        right: calc(50vw - 640px + 182px);
     }
 `;
 
@@ -122,7 +125,7 @@ const DropdownItems = styled.ul`
 
 const MyNotiTail = styled.div`
     position: absolute;
-    right: 23%;
+    right: calc(5% + 182px);
 
     transform: translateX(-47px);
 
@@ -139,6 +142,10 @@ const MyNotiTail = styled.div`
 
     @media screen and (max-width: 767px) {
         display: none;
+    }
+
+    @media screen and (min-width: 1280px) {
+        right: calc(50vw - 640px + 182px);
     }
 `;
 
